@@ -1,9 +1,9 @@
 {
   "paragraphs": [
     {
-      "text": "import org.apache.spark.sql.functions._\n\nval df \u003d spark\n    .read\n    .option(\"header\", \"true\")\n    .csv(s\"/data/bydate.csv\")\n\nval dfRes \u003d df.selectExpr(\"year(timestamp) AS year\", \"count\").groupBy(\"year\").sum().alias(\"total\")\n\n\ndfRes.registerTempTable(\"yearData\")\n\n",
+      "text": "import org.apache.spark.sql.functions._\n\ncase class Year(year: Long, value: Long)\n\nval df \u003d spark\n    .read\n    .option(\"header\", \"true\")\n    .csv(s\"/data/bydate.csv\")\n\nimport spark.implicits._ \n\nval dfRes \u003d df\n   .selectExpr(\"year(timestamp) AS year\", \"count\").groupBy(\"year\").sum().alias(\"total\")\n      .map(row \u003d\u003e Year( row.get(0).toString.toLong, row.get(1).toString.toLong )  )\n  \n     \n\ndfRes.registerTempTable(\"yearData\")\n\ndfRes.printSchema\n\n",
       "user": "admin",
-      "dateUpdated": "2020-04-14 13:53:58.082",
+      "dateUpdated": "2020-04-14 15:10:48.625",
       "config": {
         "colWidth": 12.0,
         "fontSize": 9.0,
@@ -27,7 +27,7 @@
         "msg": [
           {
             "type": "TEXT",
-            "data": "\u001b[33mwarning: \u001b[0mthere was one deprecation warning; re-run with -deprecation for details\nimport org.apache.spark.sql.functions._\n\u001b[1m\u001b[34mdf\u001b[0m: \u001b[1m\u001b[32morg.apache.spark.sql.DataFrame\u001b[0m \u003d [timestamp: string, count: string]\n\u001b[1m\u001b[34mdfRes\u001b[0m: \u001b[1m\u001b[32morg.apache.spark.sql.Dataset[org.apache.spark.sql.Row]\u001b[0m \u003d [year: int, sum(year): bigint]\n"
+            "data": "\u001b[33mwarning: \u001b[0mthere was one deprecation warning; re-run with -deprecation for details\nroot\n |-- year: long (nullable \u003d false)\n |-- value: long (nullable \u003d false)\n\nimport org.apache.spark.sql.functions._\ndefined class Year\n\u001b[1m\u001b[34mdf\u001b[0m: \u001b[1m\u001b[32morg.apache.spark.sql.DataFrame\u001b[0m \u003d [timestamp: string, count: string]\nimport spark.implicits._\n\u001b[1m\u001b[34mdfRes\u001b[0m: \u001b[1m\u001b[32morg.apache.spark.sql.Dataset[Year]\u001b[0m \u003d [year: bigint, value: bigint]\n"
           }
         ]
       },
@@ -36,14 +36,14 @@
       "jobName": "paragraph_1586862489751_1414309615",
       "id": "paragraph_1586862489751_1414309615",
       "dateCreated": "2020-04-14 11:08:09.752",
-      "dateStarted": "2020-04-14 13:53:58.086",
-      "dateFinished": "2020-04-14 13:53:58.662",
+      "dateStarted": "2020-04-14 15:10:48.629",
+      "dateFinished": "2020-04-14 15:10:49.966",
       "status": "FINISHED"
     },
     {
-      "text": "%sql select * from yearData",
+      "text": "%sql select year, value from yearData where year \u003e 2006",
       "user": "admin",
-      "dateUpdated": "2020-04-14 13:54:17.967",
+      "dateUpdated": "2020-04-14 15:14:22.386",
       "config": {
         "colWidth": 12.0,
         "fontSize": 9.0,
@@ -51,7 +51,7 @@
         "results": {
           "0": {
             "graph": {
-              "mode": "stackedAreaChart",
+              "mode": "table",
               "height": 300.0,
               "optionOpen": false,
               "setting": {
@@ -60,7 +60,7 @@
                   "tableColumnTypeState": {
                     "names": {
                       "year": "string",
-                      "sum(year)": "string"
+                      "value": "string"
                     },
                     "updated": false
                   },
@@ -107,34 +107,30 @@
                 }
               ],
               "groups": [],
-              "values": [
-                {
-                  "name": "sum(year)",
-                  "index": 1.0,
-                  "aggr": "sum"
-                }
-              ]
-            }
+              "values": []
+            },
+            "helium": {}
           }
         },
         "editorSetting": {
-          "language": "scala",
+          "language": "sql",
           "editOnDblClick": false,
           "completionKey": "TAB",
           "completionSupport": true
         },
-        "editorMode": "ace/mode/sql"
+        "editorMode": "ace/mode/sql",
+        "editorHide": false
       },
       "settings": {
         "params": {},
         "forms": {}
       },
       "results": {
-        "code": "ERROR",
+        "code": "SUCCESS",
         "msg": [
           {
-            "type": "TEXT",
-            "data": "Error happens in sql: select * from yearData sort by\n\nmismatched input \u0027\u003cEOF\u003e\u0027 expecting {\u0027(\u0027, \u0027SELECT\u0027, \u0027FROM\u0027, \u0027ADD\u0027, \u0027AS\u0027, \u0027ALL\u0027, \u0027ANY\u0027, \u0027DISTINCT\u0027, \u0027WHERE\u0027, \u0027GROUP\u0027, \u0027BY\u0027, \u0027GROUPING\u0027, \u0027SETS\u0027, \u0027CUBE\u0027, \u0027ROLLUP\u0027, \u0027ORDER\u0027, \u0027HAVING\u0027, \u0027LIMIT\u0027, \u0027AT\u0027, \u0027OR\u0027, \u0027AND\u0027, \u0027IN\u0027, NOT, \u0027NO\u0027, \u0027EXISTS\u0027, \u0027BETWEEN\u0027, \u0027LIKE\u0027, RLIKE, \u0027IS\u0027, \u0027NULL\u0027, \u0027TRUE\u0027, \u0027FALSE\u0027, \u0027NULLS\u0027, \u0027ASC\u0027, \u0027DESC\u0027, \u0027FOR\u0027, \u0027INTERVAL\u0027, \u0027CASE\u0027, \u0027WHEN\u0027, \u0027THEN\u0027, \u0027ELSE\u0027, \u0027END\u0027, \u0027JOIN\u0027, \u0027CROSS\u0027, \u0027OUTER\u0027, \u0027INNER\u0027, \u0027LEFT\u0027, \u0027SEMI\u0027, \u0027RIGHT\u0027, \u0027FULL\u0027, \u0027NATURAL\u0027, \u0027ON\u0027, \u0027PIVOT\u0027, \u0027LATERAL\u0027, \u0027WINDOW\u0027, \u0027OVER\u0027, \u0027PARTITION\u0027, \u0027RANGE\u0027, \u0027ROWS\u0027, \u0027UNBOUNDED\u0027, \u0027PRECEDING\u0027, \u0027FOLLOWING\u0027, \u0027CURRENT\u0027, \u0027FIRST\u0027, \u0027AFTER\u0027, \u0027LAST\u0027, \u0027ROW\u0027, \u0027WITH\u0027, \u0027VALUES\u0027, \u0027CREATE\u0027, \u0027TABLE\u0027, \u0027DIRECTORY\u0027, \u0027VIEW\u0027, \u0027REPLACE\u0027, \u0027INSERT\u0027, \u0027DELETE\u0027, \u0027INTO\u0027, \u0027DESCRIBE\u0027, \u0027EXPLAIN\u0027, \u0027FORMAT\u0027, \u0027LOGICAL\u0027, \u0027CODEGEN\u0027, \u0027COST\u0027, \u0027CAST\u0027, \u0027SHOW\u0027, \u0027TABLES\u0027, \u0027COLUMNS\u0027, \u0027COLUMN\u0027, \u0027USE\u0027, \u0027PARTITIONS\u0027, \u0027FUNCTIONS\u0027, \u0027DROP\u0027, \u0027UNION\u0027, \u0027EXCEPT\u0027, \u0027MINUS\u0027, \u0027INTERSECT\u0027, \u0027TO\u0027, \u0027TABLESAMPLE\u0027, \u0027STRATIFY\u0027, \u0027ALTER\u0027, \u0027RENAME\u0027, \u0027ARRAY\u0027, \u0027MAP\u0027, \u0027STRUCT\u0027, \u0027COMMENT\u0027, \u0027SET\u0027, \u0027RESET\u0027, \u0027DATA\u0027, \u0027START\u0027, \u0027TRANSACTION\u0027, \u0027COMMIT\u0027, \u0027ROLLBACK\u0027, \u0027MACRO\u0027, \u0027IGNORE\u0027, \u0027BOTH\u0027, \u0027LEADING\u0027, \u0027TRAILING\u0027, \u0027IF\u0027, \u0027POSITION\u0027, \u0027EXTRACT\u0027, \u0027+\u0027, \u0027-\u0027, \u0027*\u0027, \u0027DIV\u0027, \u0027~\u0027, \u0027PERCENT\u0027, \u0027BUCKET\u0027, \u0027OUT\u0027, \u0027OF\u0027, \u0027SORT\u0027, \u0027CLUSTER\u0027, \u0027DISTRIBUTE\u0027, \u0027OVERWRITE\u0027, \u0027TRANSFORM\u0027, \u0027REDUCE\u0027, \u0027SERDE\u0027, \u0027SERDEPROPERTIES\u0027, \u0027RECORDREADER\u0027, \u0027RECORDWRITER\u0027, \u0027DELIMITED\u0027, \u0027FIELDS\u0027, \u0027TERMINATED\u0027, \u0027COLLECTION\u0027, \u0027ITEMS\u0027, \u0027KEYS\u0027, \u0027ESCAPED\u0027, \u0027LINES\u0027, \u0027SEPARATED\u0027, \u0027FUNCTION\u0027, \u0027EXTENDED\u0027, \u0027REFRESH\u0027, \u0027CLEAR\u0027, \u0027CACHE\u0027, \u0027UNCACHE\u0027, \u0027LAZY\u0027, \u0027FORMATTED\u0027, \u0027GLOBAL\u0027, TEMPORARY, \u0027OPTIONS\u0027, \u0027UNSET\u0027, \u0027TBLPROPERTIES\u0027, \u0027DBPROPERTIES\u0027, \u0027BUCKETS\u0027, \u0027SKEWED\u0027, \u0027STORED\u0027, \u0027DIRECTORIES\u0027, \u0027LOCATION\u0027, \u0027EXCHANGE\u0027, \u0027ARCHIVE\u0027, \u0027UNARCHIVE\u0027, \u0027FILEFORMAT\u0027, \u0027TOUCH\u0027, \u0027COMPACT\u0027, \u0027CONCATENATE\u0027, \u0027CHANGE\u0027, \u0027CASCADE\u0027, \u0027RESTRICT\u0027, \u0027CLUSTERED\u0027, \u0027SORTED\u0027, \u0027PURGE\u0027, \u0027INPUTFORMAT\u0027, \u0027OUTPUTFORMAT\u0027, DATABASE, DATABASES, \u0027DFS\u0027, \u0027TRUNCATE\u0027, \u0027ANALYZE\u0027, \u0027COMPUTE\u0027, \u0027LIST\u0027, \u0027STATISTICS\u0027, \u0027PARTITIONED\u0027, \u0027EXTERNAL\u0027, \u0027DEFINED\u0027, \u0027REVOKE\u0027, \u0027GRANT\u0027, \u0027LOCK\u0027, \u0027UNLOCK\u0027, \u0027MSCK\u0027, \u0027REPAIR\u0027, \u0027RECOVER\u0027, \u0027EXPORT\u0027, \u0027IMPORT\u0027, \u0027LOAD\u0027, \u0027ROLE\u0027, \u0027ROLES\u0027, \u0027COMPACTIONS\u0027, \u0027PRINCIPALS\u0027, \u0027TRANSACTIONS\u0027, \u0027INDEX\u0027, \u0027INDEXES\u0027, \u0027LOCKS\u0027, \u0027OPTION\u0027, \u0027ANTI\u0027, \u0027LOCAL\u0027, \u0027INPATH\u0027, STRING, BIGINT_LITERAL, SMALLINT_LITERAL, TINYINT_LITERAL, INTEGER_VALUE, DECIMAL_VALUE, DOUBLE_LITERAL, BIGDECIMAL_LITERAL, IDENTIFIER, BACKQUOTED_IDENTIFIER}(line 1, pos 30)\n\n\u003d\u003d SQL \u003d\u003d\nselect * from yearData sort by\n------------------------------^^^\n\nset zeppelin.spark.sql.stacktrace \u003d true to see full stacktrace"
+            "type": "TABLE",
+            "data": "year\tvalue\n2007\t1289033883\n2018\t4148913154\n2015\t1650077455\n2013\t1673940345\n2014\t1612019698\n2019\t7523022147\n2020\t5035429740\n2012\t1720342492\n2009\t1264261691\n2016\t2031154272\n2010\t1773348630\n2011\t1381595209\n2008\t1425159928\n2017\t3590834845\n"
           }
         ]
       },
@@ -143,14 +139,14 @@
       "jobName": "paragraph_1586862508991_1561357702",
       "id": "paragraph_1586862508991_1561357702",
       "dateCreated": "2020-04-14 11:08:28.991",
-      "dateStarted": "2020-04-14 13:54:03.471",
-      "dateFinished": "2020-04-14 13:54:03.502",
-      "status": "ERROR"
+      "dateStarted": "2020-04-14 15:13:27.896",
+      "dateFinished": "2020-04-14 15:14:15.140",
+      "status": "FINISHED"
     },
     {
       "text": "%sql\n",
-      "user": "anonymous",
-      "dateUpdated": "2020-04-14 11:58:39.077",
+      "user": "admin",
+      "dateUpdated": "2020-04-14 15:13:27.895",
       "config": {},
       "settings": {
         "params": {},
@@ -158,9 +154,9 @@
       },
       "apps": [],
       "progressUpdateIntervalMs": 500,
-      "jobName": "paragraph_1586865519077_81454776",
-      "id": "paragraph_1586865519077_81454776",
-      "dateCreated": "2020-04-14 11:58:39.077",
+      "jobName": "paragraph_1586877207895_1047569126",
+      "id": "paragraph_1586877207895_1047569126",
+      "dateCreated": "2020-04-14 15:13:27.895",
       "status": "READY"
     }
   ],
