@@ -1,0 +1,161 @@
+{
+  "paragraphs": [
+    {
+      "text": "import org.apache.spark.sql.functions._\n\nval df \u003d spark\n    .read\n    .option(\"header\", \"true\")\n    .csv(s\"/data/bydate.csv\")\n\nval dfRes \u003d df.selectExpr(\"year(timestamp) AS year\", \"count\").groupBy(\"year\").sum()\n\ndfRes.show() \n\ndfRes.registerTempTable(\"yearData\")",
+      "user": "anonymous",
+      "dateUpdated": "2020-04-14 12:00:12.186",
+      "config": {
+        "colWidth": 12.0,
+        "fontSize": 9.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "editorMode": "ace/mode/scala",
+        "editorHide": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "\u001b[33mwarning: \u001b[0mthere was one deprecation warning; re-run with -deprecation for details\n+----+----------+\n|year| sum(year)|\n+----+----------+\n|2003|  29676448|\n|2007|1289033883|\n|2018|4148913154|\n|2015|1650077455|\n|2006| 899378064|\n|2013|1673940345|\n|2014|1612019698|\n|2019|7523022147|\n|2004| 181349976|\n|2020|5035429740|\n|2012|1720342492|\n|2009|1264261691|\n|2016|2031154272|\n|2005| 413196415|\n|2010|1773348630|\n|2011|1381595209|\n|2008|1425159928|\n|2017|3590834845|\n|2002|   6502496|\n+----+----------+\n\nimport org.apache.spark.sql.functions._\n\u001b[1m\u001b[34mdf\u001b[0m: \u001b[1m\u001b[32morg.apache.spark.sql.DataFrame\u001b[0m \u003d [timestamp: string, count: string]\n\u001b[1m\u001b[34mdfRes\u001b[0m: \u001b[1m\u001b[32morg.apache.spark.sql.DataFrame\u001b[0m \u003d [year: int, sum(year): bigint]\n"
+          }
+        ]
+      },
+      "apps": [],
+      "progressUpdateIntervalMs": 500,
+      "jobName": "paragraph_1586862489751_1414309615",
+      "id": "paragraph_1586862489751_1414309615",
+      "dateCreated": "2020-04-14 11:08:09.752",
+      "dateStarted": "2020-04-14 11:56:55.704",
+      "dateFinished": "2020-04-14 11:57:55.092",
+      "status": "FINISHED"
+    },
+    {
+      "text": "%sql select * from yearData",
+      "user": "anonymous",
+      "dateUpdated": "2020-04-14 12:00:07.162",
+      "config": {
+        "colWidth": 12.0,
+        "fontSize": 9.0,
+        "enabled": true,
+        "results": {
+          "0": {
+            "graph": {
+              "mode": "stackedAreaChart",
+              "height": 300.0,
+              "optionOpen": false,
+              "setting": {
+                "table": {
+                  "tableGridState": {},
+                  "tableColumnTypeState": {
+                    "names": {
+                      "year": "string",
+                      "sum(year)": "string"
+                    },
+                    "updated": false
+                  },
+                  "tableOptionSpecHash": "[{\"name\":\"useFilter\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable filter for columns\"},{\"name\":\"showPagination\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable pagination for better navigation\"},{\"name\":\"showAggregationFooter\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable a footer for displaying aggregated values\"}]",
+                  "tableOptionValue": {
+                    "useFilter": false,
+                    "showPagination": false,
+                    "showAggregationFooter": false
+                  },
+                  "updated": false,
+                  "initialized": false
+                },
+                "stackedAreaChart": {
+                  "rotate": {
+                    "degree": "-45"
+                  },
+                  "xLabelStatus": "default"
+                }
+              },
+              "commonSetting": {},
+              "keys": [
+                {
+                  "name": "year",
+                  "index": 0.0,
+                  "aggr": "sum"
+                }
+              ],
+              "groups": [],
+              "values": [
+                {
+                  "name": "sum(year)",
+                  "index": 1.0,
+                  "aggr": "sum"
+                }
+              ]
+            },
+            "helium": {}
+          }
+        },
+        "editorSetting": {
+          "language": "sql",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "editorMode": "ace/mode/sql"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TABLE",
+            "data": "year\tsum(year)\n2003\t29676448\n2007\t1289033883\n2018\t4148913154\n2015\t1650077455\n2006\t899378064\n2013\t1673940345\n2014\t1612019698\n2019\t7523022147\n2004\t181349976\n2020\t5035429740\n2012\t1720342492\n2009\t1264261691\n2016\t2031154272\n2005\t413196415\n2010\t1773348630\n2011\t1381595209\n2008\t1425159928\n2017\t3590834845\n2002\t6502496\n"
+          }
+        ]
+      },
+      "apps": [],
+      "progressUpdateIntervalMs": 500,
+      "jobName": "paragraph_1586862508991_1561357702",
+      "id": "paragraph_1586862508991_1561357702",
+      "dateCreated": "2020-04-14 11:08:28.991",
+      "dateStarted": "2020-04-14 11:58:39.078",
+      "dateFinished": "2020-04-14 11:59:22.152",
+      "status": "FINISHED"
+    },
+    {
+      "text": "%sql\n",
+      "user": "anonymous",
+      "dateUpdated": "2020-04-14 11:58:39.077",
+      "config": {},
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "progressUpdateIntervalMs": 500,
+      "jobName": "paragraph_1586865519077_81454776",
+      "id": "paragraph_1586865519077_81454776",
+      "dateCreated": "2020-04-14 11:58:39.077",
+      "status": "READY"
+    }
+  ],
+  "name": "partroad",
+  "id": "2F7YQTZ8D",
+  "defaultInterpreterGroup": "spark",
+  "version": "0.9.0-preview1",
+  "noteParams": {},
+  "noteForms": {},
+  "angularObjects": {},
+  "config": {
+    "isZeppelinNotebookCronEnable": false
+  },
+  "info": {}
+}
