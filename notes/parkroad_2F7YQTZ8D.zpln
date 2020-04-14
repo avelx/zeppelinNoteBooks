@@ -43,11 +43,17 @@
     {
       "text": "%sql select year, value from yearData where year \u003e 2006\n",
       "user": "admin",
-      "dateUpdated": "2020-04-14 15:19:27.582",
+      "dateUpdated": "2020-04-14 15:21:42.814",
       "config": {
+        "editorSetting": {
+          "language": "sql",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
         "colWidth": 12.0,
+        "editorMode": "ace/mode/sql",
         "fontSize": 9.0,
-        "enabled": true,
         "results": {
           "0": {
             "graph": {
@@ -100,26 +106,11 @@
             "helium": {}
           }
         },
-        "editorSetting": {
-          "language": "sql",
-          "editOnDblClick": false,
-          "completionKey": "TAB",
-          "completionSupport": true
-        },
-        "editorMode": "ace/mode/sql"
+        "enabled": true
       },
       "settings": {
         "params": {},
         "forms": {}
-      },
-      "results": {
-        "code": "SUCCESS",
-        "msg": [
-          {
-            "type": "TABLE",
-            "data": "year\tvalue\n2007\t1289033883\n2018\t4148913154\n2015\t1650077455\n2013\t1673940345\n2014\t1612019698\n2019\t7523022147\n2020\t5035429740\n2012\t1720342492\n2009\t1264261691\n2016\t2031154272\n2010\t1773348630\n2011\t1381595209\n2008\t1425159928\n2017\t3590834845\n"
-          }
-        ]
       },
       "apps": [],
       "progressUpdateIntervalMs": 500,
@@ -131,10 +122,22 @@
       "status": "FINISHED"
     },
     {
-      "text": "%sql\n",
+      "text": "%sh wget https://s3.amazonaws.com/apache-zeppelin/tutorial/bank/bank.csv\nhadoop fs -put bank-data.csv ",
       "user": "admin",
-      "dateUpdated": "2020-04-14 15:18:11.192",
-      "config": {},
+      "dateUpdated": "2020-04-14 15:33:18.573",
+      "config": {
+        "colWidth": 12.0,
+        "fontSize": 9.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "sh",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": false
+        },
+        "editorMode": "ace/mode/sh"
+      },
       "settings": {
         "params": {},
         "forms": {}
@@ -144,6 +147,108 @@
       "jobName": "paragraph_1586877491192_-1345705678",
       "id": "paragraph_1586877491192_-1345705678",
       "dateCreated": "2020-04-14 15:18:11.192",
+      "status": "READY"
+    },
+    {
+      "text": "%sh\nls",
+      "user": "admin",
+      "dateUpdated": "2020-04-14 15:33:33.869",
+      "config": {
+        "colWidth": 12.0,
+        "fontSize": 9.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "sh",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": false
+        },
+        "editorMode": "ace/mode/sh"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "progressUpdateIntervalMs": 500,
+      "jobName": "paragraph_1586878398576_-1819369764",
+      "id": "paragraph_1586878398576_-1819369764",
+      "dateCreated": "2020-04-14 15:33:18.576",
+      "status": "READY"
+    },
+    {
+      "text": "%sparql \n\nPREFIX rdf: \u003chttp://www.w3.org/1999/02/22-rdf-syntax-ns#\u003e\nPREFIX rdfs: \u003chttp://www.w3.org/2000/01/rdf-schema#\u003e\nPREFIX owl:    \u003chttp://www.w3.org/2002/07/owl#\u003e\n\nSELECT ?subject ?predicate ?object WHERE { ?subject ?predicate ?object } LIMIT 10\n",
+      "user": "admin",
+      "dateUpdated": "2020-04-14 18:58:22.534",
+      "config": {
+        "editorSetting": {
+          "language": "text",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 12.0,
+        "editorMode": "ace/mode/text",
+        "fontSize": 9.0,
+        "results": {
+          "0": {
+            "graph": {
+              "mode": "table",
+              "height": 300.0,
+              "optionOpen": false,
+              "setting": {
+                "table": {
+                  "tableGridState": {},
+                  "tableColumnTypeState": {
+                    "names": {
+                      "?subject": "string",
+                      "?predicate": "string",
+                      "?object": "string"
+                    },
+                    "updated": false
+                  },
+                  "tableOptionSpecHash": "[{\"name\":\"useFilter\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable filter for columns\"},{\"name\":\"showPagination\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable pagination for better navigation\"},{\"name\":\"showAggregationFooter\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable a footer for displaying aggregated values\"}]",
+                  "tableOptionValue": {
+                    "useFilter": false,
+                    "showPagination": false,
+                    "showAggregationFooter": false
+                  },
+                  "updated": false,
+                  "initialized": false
+                }
+              },
+              "commonSetting": {}
+            }
+          }
+        },
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "progressUpdateIntervalMs": 500,
+      "jobName": "paragraph_1586878472907_1999802062",
+      "id": "paragraph_1586878472907_1999802062",
+      "dateCreated": "2020-04-14 15:34:32.907",
+      "status": "READY"
+    },
+    {
+      "text": "%sparql\n",
+      "user": "admin",
+      "dateUpdated": "2020-04-14 18:58:09.843",
+      "config": {},
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "progressUpdateIntervalMs": 500,
+      "jobName": "paragraph_1586890689843_22315105",
+      "id": "paragraph_1586890689843_22315105",
+      "dateCreated": "2020-04-14 18:58:09.843",
       "status": "READY"
     }
   ],
@@ -155,7 +260,9 @@
   "noteForms": {},
   "angularObjects": {},
   "config": {
-    "isZeppelinNotebookCronEnable": false
+    "isZeppelinNotebookCronEnable": false,
+    "personalizedMode": "true",
+    "looknfeel": "default"
   },
   "info": {}
 }
