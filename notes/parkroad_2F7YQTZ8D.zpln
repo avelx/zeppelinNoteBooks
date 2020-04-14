@@ -1,9 +1,9 @@
 {
   "paragraphs": [
     {
-      "text": "import org.apache.spark.sql.functions._\n\ncase class Year(year: Long, value: Long)\n\nval df \u003d spark\n    .read\n    .option(\"header\", \"true\")\n    .csv(s\"/data/bydate.csv\")\n\nimport spark.implicits._ \n\nval dfRes \u003d df\n   .selectExpr(\"year(timestamp) AS year\", \"count\").groupBy(\"year\").sum().alias(\"total\")\n      .map(row \u003d\u003e Year( row.get(0).toString.toLong, row.get(1).toString.toLong )  )\n  \n     \n\ndfRes.registerTempTable(\"yearData\")\n\ndfRes.printSchema\n\n",
+      "text": "import org.apache.spark.sql.functions._\n\ncase class Year(year: Long, value: Long)\n\nval df \u003d spark\n    .read\n    .option(\"header\", \"true\")\n    .csv(s\"/data/bydate.csv\")\n\nimport spark.implicits._ \n\nval dfRes \u003d df\n   .selectExpr(\"year(timestamp) AS year\", \"count\").groupBy(\"year\").sum().alias(\"total\")\n      .map(row \u003d\u003e Year( row.get(0).toString.toLong, row.get(1).toString.toLong )  )\n  \n     \n\ndfRes.registerTempTable(\"yearData\")",
       "user": "admin",
-      "dateUpdated": "2020-04-14 15:10:48.625",
+      "dateUpdated": "2020-04-14 15:15:47.703",
       "config": {
         "colWidth": 12.0,
         "fontSize": 9.0,
@@ -27,7 +27,7 @@
         "msg": [
           {
             "type": "TEXT",
-            "data": "\u001b[33mwarning: \u001b[0mthere was one deprecation warning; re-run with -deprecation for details\nroot\n |-- year: long (nullable \u003d false)\n |-- value: long (nullable \u003d false)\n\nimport org.apache.spark.sql.functions._\ndefined class Year\n\u001b[1m\u001b[34mdf\u001b[0m: \u001b[1m\u001b[32morg.apache.spark.sql.DataFrame\u001b[0m \u003d [timestamp: string, count: string]\nimport spark.implicits._\n\u001b[1m\u001b[34mdfRes\u001b[0m: \u001b[1m\u001b[32morg.apache.spark.sql.Dataset[Year]\u001b[0m \u003d [year: bigint, value: bigint]\n"
+            "data": "\u001b[33mwarning: \u001b[0mthere was one deprecation warning; re-run with -deprecation for details\nimport org.apache.spark.sql.functions._\ndefined class Year\n\u001b[1m\u001b[34mdf\u001b[0m: \u001b[1m\u001b[32morg.apache.spark.sql.DataFrame\u001b[0m \u003d [timestamp: string, count: string]\nimport spark.implicits._\n\u001b[1m\u001b[34mdfRes\u001b[0m: \u001b[1m\u001b[32morg.apache.spark.sql.Dataset[Year]\u001b[0m \u003d [year: bigint, value: bigint]\n"
           }
         ]
       },
@@ -36,14 +36,14 @@
       "jobName": "paragraph_1586862489751_1414309615",
       "id": "paragraph_1586862489751_1414309615",
       "dateCreated": "2020-04-14 11:08:09.752",
-      "dateStarted": "2020-04-14 15:10:48.629",
-      "dateFinished": "2020-04-14 15:10:49.966",
+      "dateStarted": "2020-04-14 15:15:47.706",
+      "dateFinished": "2020-04-14 15:15:49.019",
       "status": "FINISHED"
     },
     {
-      "text": "%sql select year, value from yearData where year \u003e 2006",
+      "text": "%sql select year, value from yearData where year \u003e 2006\n",
       "user": "admin",
-      "dateUpdated": "2020-04-14 15:14:22.386",
+      "dateUpdated": "2020-04-14 15:19:27.582",
       "config": {
         "colWidth": 12.0,
         "fontSize": 9.0,
@@ -51,7 +51,7 @@
         "results": {
           "0": {
             "graph": {
-              "mode": "table",
+              "mode": "multiBarChart",
               "height": 300.0,
               "optionOpen": false,
               "setting": {
@@ -73,29 +73,11 @@
                   "updated": false,
                   "initialized": false
                 },
-                "stackedAreaChart": {
-                  "rotate": {
-                    "degree": "-45"
-                  },
-                  "xLabelStatus": "default",
-                  "style": "stack"
-                },
-                "lineChart": {
-                  "rotate": {
-                    "degree": "-45"
-                  },
-                  "xLabelStatus": "default",
-                  "forceY": false,
-                  "lineWithFocus": false,
-                  "isDateFormat": false,
-                  "dateFormat": ""
-                },
                 "multiBarChart": {
                   "rotate": {
                     "degree": "-45"
                   },
-                  "xLabelStatus": "default",
-                  "stacked": false
+                  "xLabelStatus": "default"
                 }
               },
               "commonSetting": {},
@@ -107,7 +89,13 @@
                 }
               ],
               "groups": [],
-              "values": []
+              "values": [
+                {
+                  "name": "value",
+                  "index": 1.0,
+                  "aggr": "sum"
+                }
+              ]
             },
             "helium": {}
           }
@@ -118,8 +106,7 @@
           "completionKey": "TAB",
           "completionSupport": true
         },
-        "editorMode": "ace/mode/sql",
-        "editorHide": false
+        "editorMode": "ace/mode/sql"
       },
       "settings": {
         "params": {},
@@ -136,17 +123,17 @@
       },
       "apps": [],
       "progressUpdateIntervalMs": 500,
-      "jobName": "paragraph_1586862508991_1561357702",
-      "id": "paragraph_1586862508991_1561357702",
-      "dateCreated": "2020-04-14 11:08:28.991",
-      "dateStarted": "2020-04-14 15:13:27.896",
-      "dateFinished": "2020-04-14 15:14:15.140",
+      "jobName": "paragraph_1586877207895_1047569126",
+      "id": "paragraph_1586877207895_1047569126",
+      "dateCreated": "2020-04-14 15:13:27.895",
+      "dateStarted": "2020-04-14 15:18:11.193",
+      "dateFinished": "2020-04-14 15:19:15.496",
       "status": "FINISHED"
     },
     {
       "text": "%sql\n",
       "user": "admin",
-      "dateUpdated": "2020-04-14 15:13:27.895",
+      "dateUpdated": "2020-04-14 15:18:11.192",
       "config": {},
       "settings": {
         "params": {},
@@ -154,9 +141,9 @@
       },
       "apps": [],
       "progressUpdateIntervalMs": 500,
-      "jobName": "paragraph_1586877207895_1047569126",
-      "id": "paragraph_1586877207895_1047569126",
-      "dateCreated": "2020-04-14 15:13:27.895",
+      "jobName": "paragraph_1586877491192_-1345705678",
+      "id": "paragraph_1586877491192_-1345705678",
+      "dateCreated": "2020-04-14 15:18:11.192",
       "status": "READY"
     }
   ],
