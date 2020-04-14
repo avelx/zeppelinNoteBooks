@@ -1,0 +1,43 @@
+{
+  "paragraphs": [
+    {
+      "text": "import org.apache.spark.sql.functions._\n\nval df \u003d spark\n    .read\n    .option(\"header\", \"true\")\n    .csv(s\"/data/bydate.csv\")\n\nval dfRes \u003d df.selectExpr(\"year(timestamp) AS year\", \"count\").groupBy(\"year\").sum()\n\ndfRes.show() \n\ndfRes.registerTempTable(\"yearData\")",
+      "user": "anonymous",
+      "dateUpdated": "2020-04-14 11:02:17.231",
+      "config": {
+        "colWidth": 12.0,
+        "fontSize": 9.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "editorMode": "ace/mode/scala"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "progressUpdateIntervalMs": 500,
+      "jobName": "paragraph_1586862135097_-1535166766",
+      "id": "paragraph_1586862135097_-1535166766",
+      "dateCreated": "2020-04-14 11:02:15.098",
+      "status": "READY"
+    }
+  ],
+  "name": "parkRoad",
+  "id": "2F8THM5NC",
+  "defaultInterpreterGroup": "spark",
+  "version": "0.9.0-preview1",
+  "noteParams": {},
+  "noteForms": {},
+  "angularObjects": {},
+  "config": {
+    "isZeppelinNotebookCronEnable": false
+  },
+  "info": {}
+}
