@@ -3,7 +3,7 @@
     {
       "text": "import org.apache.spark.sql.functions._\n\nval df \u003d spark\n    .read\n    .option(\"header\", \"true\")\n    .csv(s\"/data/bydate.csv\")\n\nval dfRes \u003d df.selectExpr(\"year(timestamp) AS year\", \"count\").groupBy(\"year\").sum()\n\ndfRes.show() \n\ndfRes.registerTempTable(\"yearData\")",
       "user": "anonymous",
-      "dateUpdated": "2020-04-14 11:08:12.224",
+      "dateUpdated": "2020-04-14 11:08:28.564",
       "config": {
         "colWidth": 12.0,
         "fontSize": 9.0,
@@ -26,6 +26,35 @@
       "jobName": "paragraph_1586862489751_1414309615",
       "id": "paragraph_1586862489751_1414309615",
       "dateCreated": "2020-04-14 11:08:09.752",
+      "dateStarted": "2020-04-14 11:08:28.995",
+      "status": "RUNNING"
+    },
+    {
+      "text": "%sql select * from yearData",
+      "user": "anonymous",
+      "dateUpdated": "2020-04-14 11:08:54.265",
+      "config": {
+        "colWidth": 12.0,
+        "fontSize": 9.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "sql",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "editorMode": "ace/mode/sql"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "progressUpdateIntervalMs": 500,
+      "jobName": "paragraph_1586862508991_1561357702",
+      "id": "paragraph_1586862508991_1561357702",
+      "dateCreated": "2020-04-14 11:08:28.991",
       "status": "READY"
     }
   ],
