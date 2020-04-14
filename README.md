@@ -1,2 +1,2 @@
 # zeppelinNoteBooks
-Zeppelin playGround
+Zeppelin NoteBooks PlayGround
